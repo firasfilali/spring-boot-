@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -40,6 +41,17 @@ public class EmployeeCtrl {
 	@ExceptionHandler(NoSuchElementException.class)
 	public ResponseEntity<String> handleNSEE(NoSuchElementException e){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error in search : " + e.getMessage());
+	}
+	
+	@GetMapping("/employee/get/name/{name}")
+	public EmployeeEntity getOneEmpByName(@PathVariable String name){
+		return empService.getEmpByName(name);
+	}
+	
+	@GetMapping("/employee/get/date/{d}")
+	public List<EmployeeEntity> getAllEmpBornAfter(@PathVariable String d){
+		LocalDate date = LocalDate.parse(d);
+		return empService.getAllEmpBornAfter(date);
 	}
 	
 }

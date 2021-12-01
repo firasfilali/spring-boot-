@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -29,6 +30,18 @@ public class EmployeeService {
 		//throw new NoSuchElementException("Employee with this ID not found");
 	return opt.orElseThrow(()-> new NoSuchElementException("Employee with this ID not found"));
 	
+	}
+	
+
+	public EmployeeEntity getEmpByName(String name) {
+		Optional<EmployeeEntity> opt = empRepos.findByNameIgnoreCase(name);
+	
+	return opt.orElseThrow(()-> new NoSuchElementException("Employee with this ID not found"));
+	
+	}
+	
+	public List<EmployeeEntity> getAllEmpBornAfter(LocalDate date){
+		return empRepos.getAllEmpBornAfter(date);
 	}
 	
 }
