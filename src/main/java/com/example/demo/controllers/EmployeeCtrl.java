@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +53,12 @@ public class EmployeeCtrl {
 	public List<EmployeeEntity> getAllEmpBornAfter(@PathVariable String d){
 		LocalDate date = LocalDate.parse(d);
 		return empService.getAllEmpBornAfter(date);
+	}
+	
+	@PutMapping("/employee/update/{id}")
+	public EmployeeEntity updateEmpById(@PathVariable("id") int id, 
+			@RequestBody EmployeeEntity newEmployeeEntity ){
+		return empService.updateEmpById(id,newEmployeeEntity);
 	}
 	
 }
