@@ -40,5 +40,16 @@ public class EmployeeService {
 		return empRepos.getAllEmpBornAfter(date);
 	}
 	//update
-	public EmployeeEntity updateEmpById(int id, EmployeeEntity newEntity)
+	public EmployeeEntity updateEmpById(int id, EmployeeEntity newEntity) {
+		EmployeeEntity entity = getEmpById(id);
+		if(newEntity.getName()!=null)
+			entity.setName(newEntity.getName());
+		if(newEntity.getDob()!=null)
+			entity.setDob(newEntity.getDob());
+		if(newEntity.getEmail()!=null)
+			entity.setEmail(newEntity.getEmail());
+		return empRepos.save(entity);
+		
+		
+	}
 }
