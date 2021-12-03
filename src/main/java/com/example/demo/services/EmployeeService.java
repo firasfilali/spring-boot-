@@ -50,6 +50,12 @@ public class EmployeeService {
 			entity.setEmail(newEntity.getEmail());
 		return empRepos.save(entity);
 		
-		
+	}
+	
+	//delete
+	public EmployeeEntity deleteOneById(int id) {
+		EmployeeEntity entity = getEmpById(id);
+		empRepos.deleteById(id);
+		return entity;
 	}
 }
