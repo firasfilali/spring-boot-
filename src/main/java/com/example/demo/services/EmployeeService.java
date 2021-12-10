@@ -1,10 +1,13 @@
 package com.example.demo.services;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.EmployeeEntity;
@@ -42,15 +45,35 @@ public class EmployeeService {
 	//update
 	public EmployeeEntity updateEmpById(int id, EmployeeEntity newEntity) {
 		EmployeeEntity entity = getEmpById(id);
-		if(newEntity.getName()!=null)
-			entity.setName(newEntity.getName());
-		if(newEntity.getDob()!=null)
-			entity.setDob(newEntity.getDob());
-		if(newEntity.getEmail()!=null)
-			entity.setEmail(newEntity.getEmail());
-		return empRepos.save(entity);
+		//if(newEntity.getName()!=null)
+		//entity.setName(newEntity.getName());
+		//if(newEntity.getDob()!=null)
+		//entity.setDob(newEntity.getDob());
+		//if(newEntity.getEmail()!=null)
+		//entity.setEmail(newEntity.getEmail());
 		
+		newEntity.setId(entity.getId());
+		BeanUtils.copyProperties(newEntity, entity, getNullFields(newEntity));
+		return empRepos.save(entity);
 	}
+	// find null attributes in the received object
+		private String[] getNullFields(EmployeeEntity newEntity) {
+			ArrayList<String> strs = new ArrayList<String>();
+			for(Field field : newEntity.getClass().getDeclaredFields()) {// find attributes of object of a class and put it in the object "field"
+				field.setAccessible(true); // allow the access of member attributes 
+				Object attribute = null;
+				try {
+					attribute = field.get(newEntity);//attribute value "field.get(newEntity)"
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					System.err.println(e.getMessage());
+				}
+				if(attribute == null) {
+					strs.add(field.getName());
+				}
+				}
+				return strs.toArray(new String[0]);
+			}
+			
 	
 	//delete
 	public EmployeeEntity deleteOneById(int id) {
