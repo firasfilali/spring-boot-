@@ -11,7 +11,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.EmployeeEntity;
+import com.example.demo.entities.Matricule;
 import com.example.demo.repos.EmployeeRepository;
+import com.example.demo.repos.MatriculeRepositery;
 
 import lombok.AllArgsConstructor;
 
@@ -20,8 +22,11 @@ import lombok.AllArgsConstructor;
 public class EmployeeService {
 	
 	private EmployeeRepository empRepos;
+	private MatriculeRepositery matRepos;
 	
 	public EmployeeEntity saveToDB(EmployeeEntity employeeEntity) {
+		Matricule matricule = employeeEntity.getMatricule();
+		matRepos.save(matricule);
 		return empRepos.save(employeeEntity);
 	}
 	public List<EmployeeEntity> getAllEmployee(){
@@ -53,7 +58,8 @@ public class EmployeeService {
 		//entity.setEmail(newEntity.getEmail());
 		
 		newEntity.setId(entity.getId());
-		BeanUtils.copyProperties(newEntity, entity, getNullFields(newEntity));
+		BeanUtils.copyProperties(newEntity, entity, getNullFields(newEntity));// copy proprieties from object to object and dont
+																				//copy the null with this methode getNullFields(newEntity)
 		return empRepos.save(entity);
 	}
 	// find null attributes in the received object
@@ -81,4 +87,6 @@ public class EmployeeService {
 		empRepos.deleteById(id);
 		return entity;
 	}
+	
+	
 }
