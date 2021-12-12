@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -27,6 +28,13 @@ public class Matricule {
 	private LocalDate expDate;
 	@OneToOne(mappedBy = "matricule")
 	private EmployeeEntity employee;
+	
+	@ManyToOne
+	private Admin creator;
+	
+	
+	
+	
 	
 	
 

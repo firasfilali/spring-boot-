@@ -34,5 +34,6 @@ public class EmployeeEntity {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "matricule")
 	private Matricule matricule;
+	
 
 }

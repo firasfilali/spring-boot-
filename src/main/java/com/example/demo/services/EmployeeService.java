@@ -25,8 +25,8 @@ public class EmployeeService {
 	private MatriculeRepositery matRepos;
 	
 	public EmployeeEntity saveToDB(EmployeeEntity employeeEntity) {
-		Matricule matricule = employeeEntity.getMatricule();
-		matRepos.save(matricule);
+		//Matricule matricule = employeeEntity.getMatricule();
+		//matRepos.save(matricule);
 		return empRepos.save(employeeEntity);
 	}
 	public List<EmployeeEntity> getAllEmployee(){
