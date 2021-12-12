@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 public class EmployeeService {
 	
 	private EmployeeRepository empRepos;
-	private MatriculeRepositery matRepos;
+	//private MatriculeRepositery matRepos;
 	
 	public EmployeeEntity saveToDB(EmployeeEntity employeeEntity) {
 		//Matricule matricule = employeeEntity.getMatricule();
