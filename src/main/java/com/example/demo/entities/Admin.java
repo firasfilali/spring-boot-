@@ -13,13 +13,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Admin {
+public class Admin extends Personne{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private int id;
 	
-	private String name;
 	
 	@OneToMany(mappedBy = "creator")
 	private List<Matricule> matricules = new ArrayList<>();
